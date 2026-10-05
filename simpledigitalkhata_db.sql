@@ -716,3 +716,23 @@ CREATE TRIGGER bills_updated_at_trigger
 BEFORE UPDATE ON bills
 FOR EACH ROW
 EXECUTE FUNCTION update_updated_at_column();
+
+CREATE SEQUENCE IF NOT EXISTS bill_number_seq;
+
+SELECT setval(
+    'bill_number_seq',
+    COALESCE(
+        (
+            SELECT MAX(
+                CAST(
+                    SUBSTRING(bill_number FROM 3) AS BIGINT
+                )
+            )
+            FROM bills
+            WHERE bill_number ~ '^B-[0-9]+$'
+        ),
+        0
+    )
+);
+SELECT last_value
+FROM bill_number_seq;

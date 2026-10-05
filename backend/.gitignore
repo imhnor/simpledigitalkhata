@@ -1,20 +1,56 @@
-# Virtual environment
-venv/
-
-# Environment variables
+# =========================
+# Environment & Secrets
+# =========================
 .env
-backend/.env
-# Python cache
+.env.*
+!.env.example
+
+# =========================
+# Python
+# =========================
 __pycache__/
 *.py[cod]
+*.pyo
 
-# Pytest
+# Virtual environments
+.venv/
+venv/
+env/
+
+# =========================
+# FastAPI / Uvicorn
+# =========================
+*.log
+
+# =========================
+# Testing / Coverage
+# =========================
 .pytest_cache/
+.coverage
+htmlcov/
 
-# IDE
+# =========================
+# IDE / Editors
+# =========================
 .vscode/
 .idea/
 
-# OS
+# =========================
+# OS Files
+# =========================
 .DS_Store
 Thumbs.db
+
+# =========================
+# Node / React
+# =========================
+node_modules/
+dist/
+build/
+
+# =========================
+# Frontend environment
+# =========================
+frontend/.env
+frontend/.env.*
+!frontend/.env.example
