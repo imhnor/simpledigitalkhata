@@ -1,8 +1,8 @@
-import uuid
 from decimal import Decimal
+from uuid import UUID
 
-from sqlalchemy import CheckConstraint, Numeric, String
-from sqlalchemy.dialects.postgresql import UUID
+from sqlalchemy import Numeric, String, text
+from sqlalchemy.dialects.postgresql import UUID as PG_UUID
 from sqlalchemy.orm import Mapped, mapped_column
 
 from app.core.database import Base
@@ -11,10 +11,10 @@ from app.core.database import Base
 class Product(Base):
     __tablename__ = "products"
 
-    id: Mapped[uuid.UUID] = mapped_column(
-        UUID(as_uuid=True),
+    id: Mapped[UUID] = mapped_column(
+        PG_UUID(as_uuid=True),
         primary_key=True,
-        default=uuid.uuid4,
+        server_default=text("gen_random_uuid()"),
     )
 
     name: Mapped[str] = mapped_column(
@@ -36,15 +36,5 @@ class Product(Base):
     stock_quantity: Mapped[int] = mapped_column(
         nullable=False,
         default=0,
-    )
-
-    __table_args__ = (
-        CheckConstraint(
-            "price >= 0",
-            name="ck_products_price_non_negative",
-        ),
-        CheckConstraint(
-            "stock_quantity >= 0",
-            name="ck_products_stock_non_negative",
-        ),
+        server_default=text("0"),
     )

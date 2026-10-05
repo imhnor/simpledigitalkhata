@@ -40,7 +40,10 @@ class ProductBase(BaseModel):
 
     @field_validator("barcode")
     @classmethod
-    def validate_barcode(cls, value: str | None) -> str | None:
+    def validate_barcode(
+        cls,
+        value: str | None,
+    ) -> str | None:
         if value is None:
             return None
 
@@ -82,7 +85,10 @@ class ProductUpdate(BaseModel):
 
     @field_validator("name")
     @classmethod
-    def validate_name(cls, value: str | None) -> str | None:
+    def validate_name(
+        cls,
+        value: str | None,
+    ) -> str | None:
         if value is None:
             return None
 
@@ -95,7 +101,10 @@ class ProductUpdate(BaseModel):
 
     @field_validator("barcode")
     @classmethod
-    def validate_barcode(cls, value: str | None) -> str | None:
+    def validate_barcode(
+        cls,
+        value: str | None,
+    ) -> str | None:
         if value is None:
             return None
 

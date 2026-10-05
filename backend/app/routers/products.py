@@ -72,16 +72,18 @@ def get_products(
         if search_term:
             statement = statement.where(
                 or_(
-                    Product.name.ilike(f"%{search_term}%"),
-                    Product.barcode.ilike(f"%{search_term}%"),
+                    Product.name.ilike(
+                        f"%{search_term}%"
+                    ),
+                    Product.barcode.ilike(
+                        f"%{search_term}%"
+                    ),
                 )
             )
 
     statement = statement.order_by(Product.name.asc())
 
-    products = db.scalars(statement).all()
-
-    return products
+    return list(db.scalars(statement).all())
 
 
 @router.get(
@@ -100,11 +102,11 @@ def get_product_by_barcode(
             detail="Barcode cannot be empty.",
         )
 
-    statement = select(Product).where(
-        Product.barcode == barcode
+    product = db.scalar(
+        select(Product).where(
+            Product.barcode == barcode
+        )
     )
-
-    product = db.scalar(statement)
 
     if product is None:
         raise HTTPException(
