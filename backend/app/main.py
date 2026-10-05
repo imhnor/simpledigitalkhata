@@ -5,6 +5,9 @@ from sqlalchemy.orm import Session
 from app.core.database import get_db
 from app.routers.products import router as products_router
 from app.routers.customer import router as customer_router
+from app.routers.bill import router as bill_router
+from app.routers.settings import router as settings_router
+from app.routers.backup import router as backup_router
 
 app = FastAPI(
     title="SimpleDigitalKhata API",
@@ -15,8 +18,9 @@ app = FastAPI(
 
 app.include_router(products_router)
 app.include_router(customer_router)
-
-
+app.include_router(bill_router)
+app.include_router(settings_router)
+app.include_router(backup_router)
 
 @app.get("/")
 def root():
