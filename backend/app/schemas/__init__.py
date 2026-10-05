@@ -4,8 +4,18 @@ from app.schemas.product import (
     ProductUpdate,
 )
 
+from app.schemas.customer import (
+    CustomerCreate,
+    CustomerResponse,
+    CustomerUpdate,
+)
+
+
 __all__ = [
     "ProductCreate",
     "ProductUpdate",
     "ProductResponse",
+    "CustomerCreate",
+    "CustomerResponse",
+    "CustomerUpdate",
 ]
